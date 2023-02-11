@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
 class MainMenu extends StatelessWidget {
   // Reference to parent game.
-  final EmberQuestGame game;
+  final marioQuestGame game;
 
   const MainMenu({super.key, required this.game});
 
@@ -30,7 +30,7 @@ class MainMenu extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Ember Quest',
+                'mario Quest',
                 style: TextStyle(
                   color: whiteTextColor,
                   fontSize: 24,

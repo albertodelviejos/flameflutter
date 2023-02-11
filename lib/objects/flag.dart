@@ -2,9 +2,9 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
-class Flag extends SpriteAnimationComponent with HasGameRef<EmberQuestGame> {
+class Flag extends SpriteAnimationComponent with HasGameRef<marioQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
   final Vector2 velocity = Vector2.zero();

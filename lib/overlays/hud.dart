@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 import 'heart.dart';
 
-class Hud extends PositionComponent with HasGameRef<EmberQuestGame> {
+class Hud extends PositionComponent with HasGameRef<marioQuestGame> {
   Hud({
     super.position,
     super.size,

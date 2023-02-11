@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
 enum HeartState {
   available,
@@ -8,7 +8,7 @@ enum HeartState {
 }
 
 class HeartHealthComponent extends SpriteGroupComponent<HeartState>
-    with HasGameRef<EmberQuestGame> {
+    with HasGameRef<marioQuestGame> {
   final int heartNumber;
 
   HeartHealthComponent({

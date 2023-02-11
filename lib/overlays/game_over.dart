@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
 class GameOver extends StatelessWidget {
   // Reference to parent game.
-  final EmberQuestGame game;
+  final marioQuestGame game;
   const GameOver({super.key, required this.game});
 
   @override

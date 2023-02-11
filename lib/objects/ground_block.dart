@@ -2,9 +2,9 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
-class GroundBlock extends SpriteComponent with HasGameRef<EmberQuestGame> {
+class GroundBlock extends SpriteComponent with HasGameRef<marioQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
   final UniqueKey _blockKey = UniqueKey();

@@ -15,11 +15,11 @@ import 'package:flutter/material.dart';
 
 import 'actors/mario.dart';
 
-class EmberQuestGame extends FlameGame
+class marioQuestGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
-  EmberQuestGame();
+  marioQuestGame();
 
-  late MarioPlayer _ember;
+  late MarioPlayer _mario;
   double objectSpeed = 0.0;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
@@ -74,10 +74,10 @@ class EmberQuestGame extends FlameGame
       loadGameSegments(i, (640 * i).toDouble());
     }
 
-    _ember = MarioPlayer(
+    _mario = MarioPlayer(
       position: Vector2(128, canvasSize.y - 128),
     );
-    add(_ember);
+    add(_mario);
     if (loadHud) {
       add(Hud());
     }

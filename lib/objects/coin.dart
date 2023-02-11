@@ -1,9 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
-class Coin extends SpriteAnimationComponent with HasGameRef<EmberQuestGame> {
+class Coin extends SpriteAnimationComponent with HasGameRef<marioQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
 

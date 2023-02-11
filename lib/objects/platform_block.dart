@@ -1,9 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
-class PlatformBlock extends SpriteComponent with HasGameRef<EmberQuestGame> {
+class PlatformBlock extends SpriteComponent with HasGameRef<marioQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
   final Vector2 velocity = Vector2.zero();

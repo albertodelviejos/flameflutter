@@ -8,10 +8,10 @@ import 'package:flameflutter/objects/platform_block.dart';
 import 'package:flameflutter/objects/coin.dart';
 import 'package:flutter/services.dart';
 
-import '../ember_quest.dart';
+import '../mario_quest.dart';
 
 class MarioPlayer extends SpriteAnimationComponent
-    with KeyboardHandler, CollisionCallbacks, HasGameRef<EmberQuestGame> {
+    with KeyboardHandler, CollisionCallbacks, HasGameRef<marioQuestGame> {
   MarioPlayer({
     required super.position,
   }) : super(size: Vector2.all(128), anchor: Anchor.center);
@@ -21,9 +21,9 @@ class MarioPlayer extends SpriteAnimationComponent
   double moveSpeed = 200;
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
-  final double gravity = 20;
-  final double jumpSpeed = 700;
-  final double terminalVelocity = 150;
+  final double gravity = 35;
+  final double jumpSpeed = 1000;
+  final double terminalVelocity = 550;
 
   bool hasJumped = false;
 
@@ -45,12 +45,12 @@ class MarioPlayer extends SpriteAnimationComponent
         collisionNormal.normalize();
 
         // If collision normal is almost upwards,
-        // ember must be on ground.
+        // mario must be on ground.
         if (fromAbove.dot(collisionNormal) > 0.9) {
           isOnGround = true;
         }
 
-        // Resolve collision by moving ember along
+        // Resolve collision by moving mario along
         // collision normal by separation distance.
         position += collisionNormal.scaled(separationDistance);
       }
@@ -78,11 +78,11 @@ class MarioPlayer extends SpriteAnimationComponent
     game.endGame = true;
   }
 
-  // This method runs an opacity effect on ember
+  // This method runs an opacity effect on mario
 // to make it blink.
   void hit() {
     if (!hitByEnemy) {
-      // game.health--;
+      game.health--;
       hitByEnemy = true;
     }
     add(
@@ -102,11 +102,11 @@ class MarioPlayer extends SpriteAnimationComponent
   void update(double dt) {
     velocity.x = horizontalDirection * moveSpeed;
     game.objectSpeed = 0;
-    // Prevent ember from going backwards at screen edge.
+    // Prevent mario from going backwards at screen edge.
     if (position.x - 36 <= 0 && horizontalDirection < 0) {
       velocity.x = 0;
     }
-    // Prevent ember from going beyond half screen.
+    // Prevent mario from going beyond half screen.
     if (position.x + 64 >= game.size.x / 2 && horizontalDirection > 0) {
       velocity.x = 0;
       game.objectSpeed = -moveSpeed;
@@ -115,7 +115,7 @@ class MarioPlayer extends SpriteAnimationComponent
     // Apply basic gravity.
     velocity.y += gravity;
 
-    // Determine if ember has jumped.
+    // Determine if mario has jumped.
     if (hasJumped) {
       if (isOnGround) {
         velocity.y = -jumpSpeed;
@@ -124,13 +124,13 @@ class MarioPlayer extends SpriteAnimationComponent
       hasJumped = false;
     }
 
-    // Prevent ember from jumping to crazy fast.
+    // Prevent mario from jumping to crazy fast.
     velocity.y = velocity.y.clamp(-jumpSpeed, terminalVelocity);
 
-    // Adjust ember position.
+    // Adjust mario position.
     position += velocity * dt;
 
-    // If ember fell in pit, then game over.
+    // If mario fell in pit, then game over.
     if (position.y > game.size.y + size.y) {
       game.health = 0;
     }
@@ -139,7 +139,7 @@ class MarioPlayer extends SpriteAnimationComponent
       removeFromParent();
     }
 
-    // Flip ember if needed.
+    // Flip mario if needed.
     if (horizontalDirection < 0 && scale.x > 0) {
       flipHorizontally();
     } else if (horizontalDirection > 0 && scale.x < 0) {
@@ -147,23 +147,7 @@ class MarioPlayer extends SpriteAnimationComponent
     }
 
     if (game.endGame && !runEndAnimation) {
-      add(
-        MoveEffect.by(
-          Vector2(size.x * 5, 1),
-          EffectController(
-            duration: 2,
-            startDelay: 1.5,
-          ),
-        ),
-      );
-      add(
-        OpacityEffect.fadeOut(
-          EffectController(
-            duration: 0.1,
-            startDelay: 3.5,
-          ),
-        ),
-      );
+      endGameAnimation();
       runEndAnimation = true;
     }
     super.update(dt);
@@ -200,6 +184,26 @@ class MarioPlayer extends SpriteAnimationComponent
     );
     add(
       CircleHitbox(),
+    );
+  }
+
+  void endGameAnimation() {
+    add(
+      MoveEffect.by(
+        Vector2(size.x * 5, 1),
+        EffectController(
+          duration: 2,
+          startDelay: 1.5,
+        ),
+      ),
+    );
+    add(
+      OpacityEffect.fadeOut(
+        EffectController(
+          duration: 0.1,
+          startDelay: 3.5,
+        ),
+      ),
     );
   }
 }
