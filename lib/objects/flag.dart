@@ -1,34 +1,34 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flutter/material.dart';
 
 import '../ember_quest.dart';
 
-class Star extends SpriteAnimationComponent with HasGameRef<EmberQuestGame> {
+class Flag extends SpriteAnimationComponent with HasGameRef<EmberQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
-
   final Vector2 velocity = Vector2.zero();
+  bool animationRun = false;
 
-  Star({
+  Flag({
     required this.gridPosition,
     required this.xOffset,
-  }) : super(size: Vector2.all(64), anchor: Anchor.center);
+  }) : super(size: Vector2.all(64), anchor: Anchor.bottomLeft);
 
   @override
   Future<void> onLoad() async {
     animation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('coin.png'),
+      game.images.fromCache('flag.png'),
       SpriteAnimationData.sequenced(
-        amount: 4,
+        amount: 3,
         textureSize: Vector2.all(16),
         stepTime: 0.20,
       ),
     );
+
     position = Vector2(
-      (gridPosition.x * size.x) + xOffset + (size.x / 2),
-      game.size.y - (gridPosition.y * size.y) - (size.y / 2),
+      (gridPosition.x * size.x) + xOffset,
+      game.size.y - (gridPosition.y * size.y),
     );
     add(RectangleHitbox()..collisionType = CollisionType.passive);
   }
@@ -40,8 +40,16 @@ class Star extends SpriteAnimationComponent with HasGameRef<EmberQuestGame> {
     if (position.x < -size.x) removeFromParent();
     super.update(dt);
 
-    if (position.x < -size.x || game.health <= 0) {
-      removeFromParent();
+    if (game.endGame && !animationRun) {
+      add(
+        MoveEffect.by(
+          Vector2(0, size.y * 7),
+          EffectController(
+            duration: 1,
+          ),
+        ),
+      );
+      animationRun = true;
     }
   }
 }

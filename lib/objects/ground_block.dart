@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flameflutter/managers/segment_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../ember_quest.dart';
@@ -13,6 +10,7 @@ class GroundBlock extends SpriteComponent with HasGameRef<EmberQuestGame> {
   final UniqueKey _blockKey = UniqueKey();
 
   final Vector2 velocity = Vector2.zero();
+  int segmentIndex = 0;
 
   GroundBlock({
     required this.gridPosition,
@@ -42,8 +40,7 @@ class GroundBlock extends SpriteComponent with HasGameRef<EmberQuestGame> {
     if (position.x < -size.x) {
       removeFromParent();
       if (gridPosition.x == 0) {
-        game.loadGameSegments(
-            Random().nextInt(segments.length), game.lastBlockXPosition);
+        game.loadGameSegments(segmentIndex++, game.lastBlockXPosition);
       }
     }
     if (gridPosition.x == 9) {

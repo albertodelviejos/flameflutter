@@ -3,22 +3,27 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flameflutter/actors/mushroom_enemy.dart';
 import 'package:flameflutter/managers/segment_manager.dart';
+import 'package:flameflutter/objects/castle.dart';
+import 'package:flameflutter/objects/end_block.dart';
+import 'package:flameflutter/objects/end_top_block.dart';
+import 'package:flameflutter/objects/flag.dart';
 import 'package:flameflutter/objects/ground_block.dart';
 import 'package:flameflutter/objects/platform_block.dart';
-import 'package:flameflutter/objects/star.dart';
+import 'package:flameflutter/objects/coin.dart';
 import 'package:flameflutter/overlays/hud.dart';
 import 'package:flutter/material.dart';
 
-import 'actors/ember.dart';
+import 'actors/mario.dart';
 
 class EmberQuestGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
   EmberQuestGame();
 
-  late EmberPlayer _ember;
+  late MarioPlayer _ember;
   double objectSpeed = 0.0;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
+  bool endGame = false;
 
   int starsCollected = 0;
   int health = 3;
@@ -38,6 +43,11 @@ class EmberQuestGame extends FlameGame
       'heart.png',
       'coin.png',
       'mushroom.png',
+      'star.png',
+      'flag_stick.png',
+      'top_flag.png',
+      'flag.png',
+      'castle.png',
     ]);
     SpriteComponent background = SpriteComponent()
       ..sprite = await loadSprite('clouds.png')
@@ -57,14 +67,14 @@ class EmberQuestGame extends FlameGame
 
   void initializeGame(bool loadHud) {
     // Assume that size.x < 3200
-    final segmentsToLoad = (size.x / 640).ceil();
+    final segmentsToLoad = 7; //(size.x / 640).ceil();
     segmentsToLoad.clamp(0, segments.length);
 
     for (var i = 0; i <= segmentsToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
     }
 
-    _ember = EmberPlayer(
+    _ember = MarioPlayer(
       position: Vector2(128, canvasSize.y - 128),
     );
     add(_ember);
@@ -94,14 +104,38 @@ class EmberQuestGame extends FlameGame
             xOffset: xPositionOffset,
           ));
           break;
-        case Star:
-          add(Star(
+        case Coin:
+          add(Coin(
             gridPosition: block.gridPosition,
             xOffset: xPositionOffset,
           ));
           break;
         case MushroomEnemy:
           add(MushroomEnemy(
+            gridPosition: block.gridPosition,
+            xOffset: xPositionOffset,
+          ));
+          break;
+        case EndBlock:
+          add(EndBlock(
+            gridPosition: block.gridPosition,
+            xOffset: xPositionOffset,
+          ));
+          break;
+        case EndTopBlock:
+          add(EndTopBlock(
+            gridPosition: block.gridPosition,
+            xOffset: xPositionOffset,
+          ));
+          break;
+        case Flag:
+          add(Flag(
+            gridPosition: block.gridPosition,
+            xOffset: xPositionOffset,
+          ));
+          break;
+        case Castle:
+          add(Castle(
             gridPosition: block.gridPosition,
             xOffset: xPositionOffset,
           ));
