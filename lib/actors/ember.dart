@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flameflutter/actors/water_enemy.dart';
+import 'package:flameflutter/actors/mushroom_enemy.dart';
 import 'package:flameflutter/objects/ground_block.dart';
 import 'package:flameflutter/objects/platform_block.dart';
 import 'package:flameflutter/objects/star.dart';
@@ -20,8 +20,8 @@ class EmberPlayer extends SpriteAnimationComponent
   final double moveSpeed = 200;
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
-  final double gravity = 15;
-  final double jumpSpeed = 600;
+  final double gravity = 20;
+  final double jumpSpeed = 700;
   final double terminalVelocity = 150;
 
   bool hasJumped = false;
@@ -58,7 +58,7 @@ class EmberPlayer extends SpriteAnimationComponent
       game.starsCollected++;
     }
 
-    if (other is WaterEnemy) {
+    if (other is MushroomEnemy) {
       hit();
     }
 

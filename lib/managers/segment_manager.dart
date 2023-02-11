@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 
-import '../actors/water_enemy.dart';
+import '../actors/mushroom_enemy.dart';
 import '../objects/ground_block.dart';
 import '../objects/platform_block.dart';
 import '../objects/star.dart';
@@ -29,7 +29,7 @@ final segment0 = [
   Block(Vector2(3, 0), GroundBlock),
   Block(Vector2(4, 0), GroundBlock),
   Block(Vector2(5, 0), GroundBlock),
-  Block(Vector2(5, 1), WaterEnemy),
+  Block(Vector2(5, 1), MushroomEnemy),
   Block(Vector2(5, 3), PlatformBlock),
   Block(Vector2(6, 0), GroundBlock),
   Block(Vector2(6, 3), PlatformBlock),
@@ -54,7 +54,7 @@ final segment1 = [
   Block(Vector2(8, 0), GroundBlock),
   Block(Vector2(8, 1), PlatformBlock),
   Block(Vector2(8, 5), PlatformBlock),
-  Block(Vector2(8, 6), WaterEnemy),
+  Block(Vector2(8, 6), MushroomEnemy),
   Block(Vector2(9, 0), GroundBlock),
 ];
 
@@ -68,7 +68,7 @@ final segment2 = [
   Block(Vector2(4, 3), PlatformBlock),
   Block(Vector2(5, 0), GroundBlock),
   Block(Vector2(5, 3), PlatformBlock),
-  Block(Vector2(5, 4), WaterEnemy),
+  Block(Vector2(5, 4), MushroomEnemy),
   Block(Vector2(6, 0), GroundBlock),
   Block(Vector2(6, 3), PlatformBlock),
   Block(Vector2(6, 4), PlatformBlock),
@@ -82,7 +82,7 @@ final segment2 = [
 final segment3 = [
   Block(Vector2(0, 0), GroundBlock),
   Block(Vector2(1, 0), GroundBlock),
-  Block(Vector2(1, 1), WaterEnemy),
+  Block(Vector2(1, 1), MushroomEnemy),
   Block(Vector2(2, 0), GroundBlock),
   Block(Vector2(2, 1), PlatformBlock),
   Block(Vector2(2, 2), PlatformBlock),
@@ -101,7 +101,7 @@ final segment4 = [
   Block(Vector2(2, 0), GroundBlock),
   Block(Vector2(2, 3), PlatformBlock),
   Block(Vector2(3, 0), GroundBlock),
-  Block(Vector2(3, 1), WaterEnemy),
+  Block(Vector2(3, 1), MushroomEnemy),
   Block(Vector2(3, 3), PlatformBlock),
   Block(Vector2(4, 0), GroundBlock),
   Block(Vector2(5, 0), GroundBlock),
@@ -113,6 +113,6 @@ final segment4 = [
   Block(Vector2(8, 0), GroundBlock),
   Block(Vector2(8, 3), PlatformBlock),
   Block(Vector2(9, 0), GroundBlock),
-  Block(Vector2(9, 1), WaterEnemy),
+  Block(Vector2(9, 1), MushroomEnemy),
   Block(Vector2(9, 3), PlatformBlock),
 ];

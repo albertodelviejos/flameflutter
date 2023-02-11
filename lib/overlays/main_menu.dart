@@ -10,7 +10,7 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const blackTextColor = Color.fromRGBO(0, 0, 0, 1.0);
+    const blackTextColor = Color.fromRGBO(0, 0, 0, 0.376);
     const whiteTextColor = Color.fromRGBO(255, 255, 255, 1.0);
 
     return Material(

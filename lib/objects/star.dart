@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../ember_quest.dart';
 
-class Star extends SpriteComponent with HasGameRef<EmberQuestGame> {
+class Star extends SpriteAnimationComponent with HasGameRef<EmberQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
 
@@ -18,24 +18,19 @@ class Star extends SpriteComponent with HasGameRef<EmberQuestGame> {
 
   @override
   Future<void> onLoad() async {
-    final starImage = game.images.fromCache('star.png');
-    sprite = Sprite(starImage);
+    animation = SpriteAnimation.fromFrameData(
+      game.images.fromCache('coin.png'),
+      SpriteAnimationData.sequenced(
+        amount: 4,
+        textureSize: Vector2.all(16),
+        stepTime: 0.20,
+      ),
+    );
     position = Vector2(
       (gridPosition.x * size.x) + xOffset + (size.x / 2),
       game.size.y - (gridPosition.y * size.y) - (size.y / 2),
     );
     add(RectangleHitbox()..collisionType = CollisionType.passive);
-    add(
-      SizeEffect.by(
-        Vector2(-24, -24),
-        EffectController(
-          duration: .75,
-          reverseDuration: .5,
-          infinite: true,
-          curve: Curves.easeOut,
-        ),
-      ),
-    );
   }
 
   @override

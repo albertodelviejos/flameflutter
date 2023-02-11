@@ -1,6 +1,7 @@
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flameflutter/actors/water_enemy.dart';
+import 'package:flameflutter/actors/mushroom_enemy.dart';
 import 'package:flameflutter/managers/segment_manager.dart';
 import 'package:flameflutter/objects/ground_block.dart';
 import 'package:flameflutter/objects/platform_block.dart';
@@ -24,7 +25,7 @@ class EmberQuestGame extends FlameGame
 
   @override
   Color backgroundColor() {
-    return const Color.fromARGB(255, 173, 223, 247);
+    return Color.fromARGB(255, 155, 210, 255);
   }
 
   @override
@@ -35,9 +36,14 @@ class EmberQuestGame extends FlameGame
       'ground.png',
       'heart_half.png',
       'heart.png',
-      'star.png',
-      'water_enemy.png',
+      'coin.png',
+      'mushroom.png',
     ]);
+    SpriteComponent background = SpriteComponent()
+      ..sprite = await loadSprite('clouds.png')
+      ..size = size;
+
+    add(background);
     initializeGame(true);
   }
 
@@ -94,8 +100,8 @@ class EmberQuestGame extends FlameGame
             xOffset: xPositionOffset,
           ));
           break;
-        case WaterEnemy:
-          add(WaterEnemy(
+        case MushroomEnemy:
+          add(MushroomEnemy(
             gridPosition: block.gridPosition,
             xOffset: xPositionOffset,
           ));

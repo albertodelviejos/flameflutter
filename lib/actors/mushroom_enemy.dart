@@ -4,14 +4,14 @@ import 'package:flame/effects.dart';
 
 import '../ember_quest.dart';
 
-class WaterEnemy extends SpriteAnimationComponent
+class MushroomEnemy extends SpriteAnimationComponent
     with HasGameRef<EmberQuestGame> {
   final Vector2 gridPosition;
   double xOffset;
 
   final Vector2 velocity = Vector2.zero();
 
-  WaterEnemy({
+  MushroomEnemy({
     required this.gridPosition,
     required this.xOffset,
   }) : super(size: Vector2.all(64), anchor: Anchor.bottomLeft);
@@ -19,7 +19,7 @@ class WaterEnemy extends SpriteAnimationComponent
   @override
   Future<void> onLoad() async {
     animation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('water_enemy.png'),
+      game.images.fromCache('mushroom.png'),
       SpriteAnimationData.sequenced(
         amount: 2,
         textureSize: Vector2.all(16),
@@ -27,8 +27,8 @@ class WaterEnemy extends SpriteAnimationComponent
       ),
     );
     position = Vector2(
-      (gridPosition.x * size.x) + xOffset + (size.x / 2),
-      game.size.y - (gridPosition.y * size.y) - (size.y / 2),
+      (gridPosition.x * size.x) + xOffset,
+      game.size.y - (gridPosition.y * size.y),
     );
     add(RectangleHitbox()..collisionType = CollisionType.passive);
     add(
