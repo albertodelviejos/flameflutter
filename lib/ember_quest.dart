@@ -32,7 +32,7 @@ class EmberQuestGame extends FlameGame
   Future<void> onLoad() async {
     await images.loadAll([
       'block.png',
-      'ember.png',
+      'mario.png',
       'ground.png',
       'heart_half.png',
       'heart.png',

@@ -13,7 +13,7 @@ class EmberPlayer extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks, HasGameRef<EmberQuestGame> {
   EmberPlayer({
     required super.position,
-  }) : super(size: Vector2.all(64), anchor: Anchor.center);
+  }) : super(size: Vector2.all(128), anchor: Anchor.center);
 
   int horizontalDirection = 0;
   final Vector2 velocity = Vector2.zero();
@@ -152,10 +152,10 @@ class EmberPlayer extends SpriteAnimationComponent
   @override
   Future<void> onLoad() async {
     animation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('ember.png'),
+      game.images.fromCache('mario.png'),
       SpriteAnimationData.sequenced(
-        amount: 4,
-        textureSize: Vector2.all(16),
+        amount: 5,
+        textureSize: Vector2.all(32),
         stepTime: 0.12,
       ),
     );
