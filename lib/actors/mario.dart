@@ -22,7 +22,7 @@ class MarioPlayer extends SpriteAnimationComponent
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
   final double gravity = 35;
-  final double jumpSpeed = 1000;
+  final double jumpSpeed = 600;
   final double terminalVelocity = 250;
 
   bool hasJumped = false;
@@ -42,26 +42,19 @@ class MarioPlayer extends SpriteAnimationComponent
             2;
 
         final collisionNormal = absoluteCenter - mid;
-
-        final separationDistance = size.y - collisionNormal.length;
+        final separationDistance =
+            ((size.y / 2) + 6.5) - collisionNormal.length;
         collisionNormal.normalize();
 
-        print('mid: $mid');
-        print('absoluteCenter: $absoluteCenter');
-        print('collisionNormal: $collisionNormal');
-        print('separationDistance: $separationDistance');
-
         // If collision normal is almost upwards,
-        // mario must be on ground.
+        // ember must be on ground.
         if (fromAbove.dot(collisionNormal) > 0.9) {
           isOnGround = true;
         }
 
-        // Resolve collision by moving mario along
+        // Resolve collision by moving ember along
         // collision normal by separation distance.
         position += collisionNormal.scaled(separationDistance);
-        position = Vector2(position.x, position.y + 48);
-        print('position: $position');
       }
     }
 
@@ -193,11 +186,7 @@ class MarioPlayer extends SpriteAnimationComponent
       ),
     );
 
-    add(
-      RectangleHitbox(size: size)
-        ..collisionType = CollisionType.active
-        ..renderShape = true,
-    );
+    add(RectangleHitbox(size: size)..collisionType = CollisionType.active);
   }
 
   void endGameAnimation() {
@@ -205,7 +194,7 @@ class MarioPlayer extends SpriteAnimationComponent
       MoveEffect.by(
         Vector2(size.x * 5, 1),
         EffectController(
-          duration: 2,
+          duration: 3,
           startDelay: 1.5,
         ),
       ),

@@ -48,7 +48,6 @@ class marioQuestGame extends FlameGame
       'top_flag.png',
       'flag.png',
       'castle.png',
-      'mario_standing.png',
     ]);
     SpriteComponent background = SpriteComponent()
       ..sprite = await loadSprite('clouds.png')
