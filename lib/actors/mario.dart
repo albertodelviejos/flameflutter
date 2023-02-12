@@ -14,7 +14,7 @@ class MarioPlayer extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks, HasGameRef<marioQuestGame> {
   MarioPlayer({
     required super.position,
-  }) : super(size: Vector2.all(128), anchor: Anchor.center);
+  }) : super(size: Vector2(64, 108), anchor: Anchor.center);
 
   int horizontalDirection = 0;
   final Vector2 velocity = Vector2.zero();
@@ -23,7 +23,7 @@ class MarioPlayer extends SpriteAnimationComponent
   bool isOnGround = false;
   final double gravity = 35;
   final double jumpSpeed = 1000;
-  final double terminalVelocity = 550;
+  final double terminalVelocity = 250;
 
   bool hasJumped = false;
 
@@ -33,6 +33,7 @@ class MarioPlayer extends SpriteAnimationComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    print('original_position: $position');
     if (other is GroundBlock || other is PlatformBlock) {
       if (intersectionPoints.length == 2) {
         // Calculate the collision normal and separation distance.
@@ -41,8 +42,14 @@ class MarioPlayer extends SpriteAnimationComponent
             2;
 
         final collisionNormal = absoluteCenter - mid;
-        final separationDistance = (size.x / 2) - collisionNormal.length;
+
+        final separationDistance = size.y - collisionNormal.length;
         collisionNormal.normalize();
+
+        print('mid: $mid');
+        print('absoluteCenter: $absoluteCenter');
+        print('collisionNormal: $collisionNormal');
+        print('separationDistance: $separationDistance');
 
         // If collision normal is almost upwards,
         // mario must be on ground.
@@ -53,6 +60,8 @@ class MarioPlayer extends SpriteAnimationComponent
         // Resolve collision by moving mario along
         // collision normal by separation distance.
         position += collisionNormal.scaled(separationDistance);
+        position = Vector2(position.x, position.y + 48);
+        print('position: $position');
       }
     }
 
@@ -82,7 +91,7 @@ class MarioPlayer extends SpriteAnimationComponent
 // to make it blink.
   void hit() {
     if (!hitByEnemy) {
-      game.health--;
+      // game.health--;
       hitByEnemy = true;
     }
     add(
@@ -158,6 +167,7 @@ class MarioPlayer extends SpriteAnimationComponent
     if (game.endGame) {
       return false;
     }
+
     horizontalDirection = 0;
     horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyA) ||
             keysPressed.contains(LogicalKeyboardKey.arrowLeft))
@@ -178,12 +188,15 @@ class MarioPlayer extends SpriteAnimationComponent
       game.images.fromCache('mario.png'),
       SpriteAnimationData.sequenced(
         amount: 5,
-        textureSize: Vector2.all(32),
+        textureSize: Vector2(16, 27),
         stepTime: 0.12,
       ),
     );
+
     add(
-      CircleHitbox(),
+      RectangleHitbox(size: size)
+        ..collisionType = CollisionType.active
+        ..renderShape = true,
     );
   }
 
